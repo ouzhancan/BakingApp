@@ -1,19 +1,39 @@
 <resources>
 
     <integer name="grid_layout_column_num">1</integer>
+    <integer name="grid_horizontal_column_num">2</integer>
+
+    <dimen name="card_seperator_height">1dp</dimen>
+    <dimen name="card_seperator_margin">2dp</dimen>
 
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="activity_horizontal_margin">8dp</dimen>
+
+    <dimen name="activity_vertical_padding">4dp</dimen>
+    <dimen name="activity_horizontal_padding">4dp</dimen>
 
     <dimen name="main_grid_horizontal_space">8dp</dimen>
     <dimen name="main_grid_vertical_space">12dp</dimen>
     <dimen name="main_grid_padding">8dp</dimen>
     <dimen name="main_grid_column_width">240dp</dimen>
 
-    <dimen name="recipes_width">250dp</dimen>
+    <dimen name="card_margin_vertical">4dp</dimen>
+    <dimen name="card_margin_horizontal">4dp</dimen>
+    <dimen name="card_radius">1dp</dimen>
+
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="people_text_size">18sp</dimen>
+
+    <dimen name="image_height">200dp</dimen>
+
 
     <dimen name="video_container_height">240dp</dimen>
     <dimen name="recipe_container_height">180dp</dimen>
+
+    <dimen name="progress_bar_height">32dp</dimen>
+    <dimen name="progress_bar_width">32dp</dimen>
+
+    <dimen name="error_message_size">16dp</dimen>
 
 
 </resources>
