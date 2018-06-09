@@ -14,4 +14,8 @@
     <string name="connection_error_message">There is no suitable connection !</string>
 
     <string name="thumbnail_content_desc">This is an image of recipe. </string>
+
+    <string name="recipe_step_error">Didn\'t get recipe informations that was selected !</string>
+
+    <string name="recipe_ingredients">Recipe Ingredients</string>
 </resources>

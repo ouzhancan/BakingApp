@@ -1,25 +1,29 @@
-package com.udacity.ouz.bakingapp;
+package com.udacity.ouz.bakingapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.udacity.ouz.bakingapp.MainActivity;
+import com.udacity.ouz.bakingapp.R;
+import com.udacity.ouz.bakingapp.RecipeStepActivity;
 import com.udacity.ouz.bakingapp.model.Recipe;
-import com.udacity.ouz.bakingapp.model.RecipeContainer;
 import com.udacity.ouz.bakingapp.util.RecipeTypes;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
@@ -55,6 +59,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         holder.recipe_title.setText(recipe.getName());
         holder.recipe_people.setText("for "+recipe.getServings()+" people");
+        holder.recipe_id.setText(recipe.getId());
 
         if(recipe.getImage()!=null && recipe.getImage().length()>0){
             Picasso.with(context)
@@ -78,22 +83,49 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return new Long(recipes.get(position).getId());
     }
 
-    public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public Recipe getItemById(String id){
+
+        Recipe selectedRecipe=null;
+
+        if(recipes.size() > 0 ){
+            for(Recipe recipe : recipes){
+                if(recipe.getId().equalsIgnoreCase(id)){
+                    selectedRecipe = recipe;
+                    break;
+                }
+            }
+        }
+
+        return selectedRecipe;
+    }
+
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_recipe_thumbnail)
         ImageView recipe_thumbnail;
         @BindView(R.id.tv_recipe_title)
         TextView recipe_title;
         @BindView(R.id.tv_recipe_people)
         TextView recipe_people;
+        @BindView(R.id.tv_recipe_id)
+        TextView recipe_id;
+
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
 
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(context,"Clicked recipe is : "+v.getId(),Toast.LENGTH_LONG).show();
+        @OnClick
+        public void onClick() {
+
+            String clickedId = recipe_id.getText().toString();
+
+            Log.d(getClass().getName(),"Clicked recipe is : "+clickedId);
+
+            Intent intent = new Intent(context,RecipeStepActivity.class);
+            intent.putExtra(MainActivity.SELECTED_RECIPE_KEY,getItemById(clickedId));
+
+            context.startActivity(intent);
         }
     }
 
