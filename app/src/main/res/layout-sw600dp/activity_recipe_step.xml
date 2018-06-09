@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="5">>
+    android:weightSum="5">
 
     <fragment
         android:layout_width="match_parent"
@@ -31,20 +31,15 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <FrameLayout android:id="@+id/video_container"
+        <FrameLayout android:id="@+id/media_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/video_container_height"
             android:scaleType="centerInside"/>
 
-        <FrameLayout android:id="@+id/recipe_step_container"
+        <FrameLayout android:id="@+id/instruction_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_container_height"
             android:scaleType="centerInside"/>
-
-
     </LinearLayout>
-
-
-
 
 </LinearLayout>

@@ -10,4 +10,6 @@
     <color name="text">#515151</color>
 
     <color name="error_message">#760a23</color>
+
+    <color name="instruction_text_color">#403f3f</color>
 </resources>

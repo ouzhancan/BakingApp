@@ -3,6 +3,12 @@
 
     <string name="error_message">Error message is shown by here. </string>
 
+    <string name="previous_label">Previous </string>
+
+    <string name="next_label">Next  </string>
+
+    <string name="connection">Error message is shown by here. </string>
+
     <string name="no_data_error_message">There is no data to display !</string>
 
     <string name="connection_error_message">There is no suitable connection !</string>
