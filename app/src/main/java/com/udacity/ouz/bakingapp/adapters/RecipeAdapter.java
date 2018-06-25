@@ -3,6 +3,7 @@ package com.udacity.ouz.bakingapp.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.udacity.ouz.bakingapp.R;
 import com.udacity.ouz.bakingapp.RecipeStepActivity;
 import com.udacity.ouz.bakingapp.model.Recipe;
 import com.udacity.ouz.bakingapp.util.RecipeTypes;
+import com.udacity.ouz.bakingapp.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -30,11 +32,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     Context context;
     ArrayList<Recipe> recipes;
     Boolean isLandscapeMode;
+    Boolean isTwoPane;
 
     public RecipeAdapter(Context context,ArrayList<Recipe> list,Boolean isLandscapeMode){
         this.context = context;
         this.recipes = list;
         this.isLandscapeMode = isLandscapeMode;
+        this.isTwoPane = false;
     }
 
     @NonNull
@@ -122,8 +126,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
             Log.d(getClass().getName(),"Clicked recipe is : "+clickedId);
 
+            Bundle bundle = new Bundle();
             Intent intent = new Intent(context,RecipeStepActivity.class);
-            intent.putExtra(MainActivity.SELECTED_RECIPE_KEY,getItemById(clickedId));
+
+            bundle.putSerializable(ScreenUtil.SELECTED_RECIPE_KEY,getItemById(clickedId));
+            bundle.putBoolean(ScreenUtil.SCREEN_MODE_KEY,isLandscapeMode);
+            bundle.putBoolean(ScreenUtil.IS_TWO_PANE_KEY,isTwoPane);
+
+            intent.putExtras(bundle);
 
             context.startActivity(intent);
         }

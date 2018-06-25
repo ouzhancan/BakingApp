@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.udacity.ouz.bakingapp.adapters.RecipeAdapter;
 import com.udacity.ouz.bakingapp.model.Recipe;
 import com.udacity.ouz.bakingapp.util.NetworkUtil;
+import com.udacity.ouz.bakingapp.util.ScreenUtil;
 
 import java.util.ArrayList;
 
@@ -54,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
     ArrayList<Recipe> recipeList;
 
-    public static final String SCREEN_MODE_KEY = "SCREEN_MODE";
-    public static final String SELECTED_RECIPE_KEY = "SELECTED_RECIPE";
     Boolean isLandscapeMode = false;
 
     @Override
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     private void getOrientation(Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
-            isLandscapeMode = savedInstanceState.getBoolean(SCREEN_MODE_KEY);
+            isLandscapeMode = savedInstanceState.getBoolean(ScreenUtil.SCREEN_MODE_KEY);
         }
 
         // get device current orientation
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(SCREEN_MODE_KEY, isLandscapeMode);
+        outState.putBoolean(ScreenUtil.SCREEN_MODE_KEY, isLandscapeMode);
         super.onSaveInstanceState(outState);
     }
 

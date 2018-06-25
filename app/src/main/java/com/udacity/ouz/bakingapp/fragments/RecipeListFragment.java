@@ -12,11 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.udacity.ouz.bakingapp.MainActivity;
 import com.udacity.ouz.bakingapp.R;
 import com.udacity.ouz.bakingapp.RecipeStepActivity;
 import com.udacity.ouz.bakingapp.adapters.RecipeItemAdapter;
+import com.udacity.ouz.bakingapp.model.Ingredient;
 import com.udacity.ouz.bakingapp.model.Recipe;
+import com.udacity.ouz.bakingapp.util.ScreenUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,20 +63,42 @@ public class RecipeListFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
+        RecipeStepActivity context = (RecipeStepActivity)getContext();
+
         Recipe selectedRecipe=null;
 
         if(savedInstanceState != null ){
-            selectedRecipe = (Recipe)savedInstanceState.get(MainActivity.SELECTED_RECIPE_KEY);
+            selectedRecipe = (Recipe)savedInstanceState.get(ScreenUtil.SELECTED_RECIPE_KEY);
+        }else{
+
+            Recipe recipe = (Recipe)context.getIntent().getSerializableExtra(ScreenUtil.SELECTED_RECIPE_KEY);
+            selectedRecipe = recipe;
+
+            context.getIntent().getBooleanExtra(ScreenUtil.IS_TWO_PANE_KEY,false);
+            context.getIntent().getBooleanExtra(ScreenUtil.SCREEN_MODE_KEY,false);
         }
 
-        if(selectedRecipe == null){
-            selectedRecipe = RecipeStepActivity.getSelectedRecipe();
+        if(selectedRecipe != null){
+
+            StringBuilder ingredientBuilder = new StringBuilder();
+
+            for(Ingredient ingredient : selectedRecipe.getIngredients()){
+                ingredientBuilder.append(" - "+ingredient.getQuantity()+" ");
+                ingredientBuilder.append(ingredient.getMeasure() +" ");
+                ingredientBuilder.append(ingredient.getIngredient());
+                ingredientBuilder.append(System.lineSeparator());
+            }
+
+            tvIngredients.setText(ingredientBuilder.toString());
+
+            RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(context,
+                    selectedRecipe.getSteps());
+
+            rvSteps.setAdapter(recipeItemAdapter);
+            rvSteps.setHasFixedSize(true);
+            recipeItemAdapter.setData(selectedRecipe.getSteps());
         }
 
-        RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(getContext(), selectedRecipe);
-
-        rvSteps.setAdapter(recipeItemAdapter);
-        rvSteps.setHasFixedSize(true);
 
         return rootView;
     }
