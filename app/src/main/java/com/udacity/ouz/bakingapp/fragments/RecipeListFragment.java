@@ -17,7 +17,10 @@ import com.udacity.ouz.bakingapp.RecipeStepActivity;
 import com.udacity.ouz.bakingapp.adapters.RecipeItemAdapter;
 import com.udacity.ouz.bakingapp.model.Ingredient;
 import com.udacity.ouz.bakingapp.model.Recipe;
+import com.udacity.ouz.bakingapp.model.Step;
 import com.udacity.ouz.bakingapp.util.ScreenUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,12 +94,18 @@ public class RecipeListFragment extends Fragment {
 
             tvIngredients.setText(ingredientBuilder.toString());
 
+
+            ArrayList<Step> stepList = new ArrayList<Step>();
+            for(Step element : selectedRecipe.getSteps() ){
+                stepList.add(element);
+            }
+
             RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(context,
-                    selectedRecipe.getSteps());
+                    stepList);
 
             rvSteps.setAdapter(recipeItemAdapter);
-            rvSteps.setHasFixedSize(true);
-            recipeItemAdapter.setData(selectedRecipe.getSteps());
+            //rvSteps.setHasFixedSize(true);
+            recipeItemAdapter.setData(stepList);
         }
 
 

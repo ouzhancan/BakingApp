@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.udacity.ouz.bakingapp.MainActivity;
 import com.udacity.ouz.bakingapp.R;
 import com.udacity.ouz.bakingapp.RecipeStepActivity;
 import com.udacity.ouz.bakingapp.model.Recipe;

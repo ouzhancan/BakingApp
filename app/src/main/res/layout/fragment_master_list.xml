@@ -30,7 +30,6 @@
         android:layout_below="@id/tv_recipe_ingredients"
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:background="@color/card_background"
         android:elevation="3dp"
         android:fitsSystemWindows="true"
         android:orientation="vertical"

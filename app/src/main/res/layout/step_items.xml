@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_step_desc"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lv_recipe_step"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="@dimen/instruction_text_size"
-    android:textColor="@color/instruction_text_color"
-    android:text="@string/recipe_ingredients">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_padding">
 
-</TextView>
+    <TextView
+        android:id="@+id/tv_step_desc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/instruction_text_size"
+        android:textColor="@color/instruction_text_color"
+        android:text="@string/recipe_ingredients">
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:padding="@dimen/activity_vertical_padding"
+        />
+</LinearLayout>
