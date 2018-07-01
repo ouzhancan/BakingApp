@@ -10,8 +10,11 @@
         android:id="@+id/tv_step_desc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/instruction_text_size"
-        android:textColor="@color/instruction_text_color"
+        android:textSize="@dimen/step_text_size"
+        android:textColor="@color/step_text_color"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
         android:text="@string/recipe_ingredients">
     </TextView>
 
@@ -19,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:padding="@dimen/activity_vertical_padding"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         />
 </LinearLayout>

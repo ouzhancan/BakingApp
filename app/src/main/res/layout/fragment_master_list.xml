@@ -7,6 +7,34 @@
     android:background="@color/background"
     tools:context=".RecipeStepActivity">
 
+    <ImageView
+        android:id="@+id/iv_ingredients"
+        android:layout_width="@dimen/ingredient_image_width"
+        android:layout_height="@dimen/ingredient_image_height"
+        android:src="@drawable/ingredients"
+        android:layout_margin="@dimen/activity_vertical_padding"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:textColor="@color/detail_title_text_color"
+        android:textSize="@dimen/detail_title_text_size"
+        android:textStyle="bold"
+        android:text="@string/ingredients_label"
+        tools:text="@string/ingredients_label"
+        android:layout_alignBottom="@id/iv_ingredients"
+        android:layout_toRightOf="@id/iv_ingredients"
+        />
+
     <TextView
         android:id="@+id/tv_recipe_ingredients"
         android:layout_width="match_parent"
@@ -14,20 +42,57 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="left"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textColor="@color/recipe_ingredients"
-        android:textSize="@dimen/error_message_size"
+        android:layout_margin="@dimen/activity_vertical_padding"
+        android:textColor="@color/ingredient_text_color"
+        android:textSize="@dimen/ingredient_text_size"
         android:textStyle="bold"
         tools:text="@string/error_message"
-        android:layout_alignParentTop="true"/>
+        android:layout_below="@id/tv_ingredients"/>
+
+    <View
+        android:id="@+id/view_seperator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="@dimen/activity_vertical_padding"
+        android:layout_below="@id/tv_recipe_ingredients"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_steps"
+        android:layout_width="@dimen/ingredient_image_width"
+        android:layout_height="@dimen/ingredient_image_height"
+        android:src="@drawable/steps"
+        android:layout_margin="@dimen/activity_vertical_padding"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/view_seperator"
+        />
+
+    <TextView
+        android:id="@+id/tv_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:textColor="@color/detail_title_text_color"
+        android:textSize="@dimen/detail_title_text_size"
+        android:textStyle="bold"
+        android:text="@string/steps_label"
+        tools:text="@string/steps_label"
+        android:layout_alignBottom="@id/iv_steps"
+        android:layout_toRightOf="@id/iv_steps"
+        />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_recipe_step"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_recipe_ingredients"
+        android:layout_below="@id/tv_steps"
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:elevation="3dp"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,21 +25,17 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RecipeListFragment extends Fragment {
 
-    OnRecipeItemClickListener mCallback;
+    public static final String TAG = "Recipe_Step_List_Fragment";
 
     @BindView(R.id.rv_recipe_step)
     RecyclerView rvSteps;
 
     @BindView(R.id.tv_recipe_ingredients)
     TextView tvIngredients;
-
-
-    public interface OnRecipeItemClickListener {
-        void onRecipeSelected(int id);
-    }
 
     public RecipeListFragment() {
     }
@@ -47,13 +44,6 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        try {
-            mCallback = (OnRecipeItemClickListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnRecipeItemClickListener");
-        }
     }
 
     @Nullable
@@ -103,11 +93,12 @@ public class RecipeListFragment extends Fragment {
             RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(context,
                     stepList);
 
+            rvSteps.setLayoutManager(new LinearLayoutManager(context));
             rvSteps.setAdapter(recipeItemAdapter);
             //rvSteps.setHasFixedSize(true);
             recipeItemAdapter.setData(stepList);
-        }
 
+        }
 
         return rootView;
     }

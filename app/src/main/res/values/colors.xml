@@ -11,7 +11,9 @@
 
     <color name="error_message">#760a23</color>
 
-    <color name="instruction_text_color">#403f3f</color>
+    <color name="ingredient_text_color">#311f1f</color>
 
-    <color name="recipe_ingredients">#311f1f</color>
+    <color name="detail_title_text_color">#a74040</color>
+
+    <color name="step_text_color">#414040</color>
 </resources>
