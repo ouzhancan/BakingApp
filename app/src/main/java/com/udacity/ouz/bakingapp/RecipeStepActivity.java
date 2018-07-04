@@ -1,20 +1,19 @@
 package com.udacity.ouz.bakingapp;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.udacity.ouz.bakingapp.adapters.RecipeItemAdapter;
 import com.udacity.ouz.bakingapp.fragments.MediaPlayerFragment;
-import com.udacity.ouz.bakingapp.fragments.RecipeListFragment;
+import com.udacity.ouz.bakingapp.fragments.StepInstructorFragment;
 import com.udacity.ouz.bakingapp.model.Recipe;
 import com.udacity.ouz.bakingapp.model.Step;
-import com.udacity.ouz.bakingapp.util.RecipeTypes;
 import com.udacity.ouz.bakingapp.util.ScreenUtil;
 
 import butterknife.BindView;
@@ -24,11 +23,15 @@ public class RecipeStepActivity extends AppCompatActivity
         implements RecipeItemAdapter.OnStepItemClickListener{
 
     @BindView(R.id.layout_frame_container)
+    @Nullable
     LinearLayout frameContainer;
 
-    private static Recipe selectedRecipe;
+    private Recipe selectedRecipe;
     private Boolean isTwoPane;
     private Boolean isLandscapeMode;
+    private int selectedStepId;
+    private String selectedVideoURL;
+    private String selectedStepInstruction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +45,13 @@ public class RecipeStepActivity extends AppCompatActivity
             isLandscapeMode = (Boolean)bundle.get(ScreenUtil.SCREEN_MODE_KEY);
             isTwoPane = (Boolean)bundle.get(ScreenUtil.IS_TWO_PANE_KEY);
 
+            ButterKnife.bind(this);
+
             if(selectedRecipe != null){
                 if(frameContainer != null){
                     isTwoPane = true;
 
-                    ButterKnife.bind(this);
+                    loadFragmentData();
 
                 }else{
                     isTwoPane = false;
@@ -66,46 +71,118 @@ public class RecipeStepActivity extends AppCompatActivity
         outState.putBoolean(ScreenUtil.IS_TWO_PANE_KEY,isTwoPane);
         outState.putBoolean(ScreenUtil.SCREEN_MODE_KEY,isLandscapeMode);
         outState.putSerializable(ScreenUtil.SELECTED_RECIPE_KEY,selectedRecipe);
+        outState.putString(ScreenUtil.SELECTED_STEP_KEY,String.valueOf(selectedStepId));
+        outState.putString(ScreenUtil.SELECTED_STEP_INSTRUCTION,selectedStepInstruction);
     }
 
     @Override
     public void onStepSelected(int id) {
-        Toast.makeText(this,"gelen id : " +id,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"gelen step id : " +id,Toast.LENGTH_SHORT).show();
 
-        String videoURL="";
+        setSelectedStepId(id);
+        Step step = findStepById(Integer.valueOf(selectedStepId));
+        setSelectedVideoURL(step.getVideoURL());
+        setSelectedStepInstruction(step.getDescription());
 
-        if(id >= 0){
-            Step[] steps = selectedRecipe.getSteps();
-            for(Step element : steps){
-                if(element.getId() == id){
-                    videoURL = element.getVideoURL();
-                }
-            }
-        }
 
         if(isTwoPane){
 
             MediaPlayerFragment mediaPlayerFragment = MediaPlayerFragment.newInstance(
-                    String.valueOf(id),videoURL );
+                    String.valueOf(getSelectedStepId()), getSelectedVideoURL());
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            fragmentManager.beginTransaction()
-                    .add(R.id.media_container, mediaPlayerFragment)
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.media_container, mediaPlayerFragment)
                     .commit();
+
+
+            StepInstructorFragment stepDetailFragment =
+                    StepInstructorFragment.newInstance(String.valueOf(getSelectedStepId()),
+                                isTwoPane,selectedStepInstruction);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.step_detail_container,stepDetailFragment)
+                    .commit();
+
 
         }else{
             Intent intent = new Intent(this,StepDetailActivity.class);
-            intent.putExtra(ScreenUtil.SELECTED_STEP_KEY,String.valueOf(id));
-            intent.putExtra(ScreenUtil.SELECTED_VIDEO_URL_KEY,videoURL);
+            intent.putExtra(ScreenUtil.SELECTED_STEP_KEY,String.valueOf(getSelectedStepId()));
+            intent.putExtra(ScreenUtil.SELECTED_VIDEO_URL_KEY,getSelectedVideoURL());
+            intent.putExtra(ScreenUtil.IS_TWO_PANE_KEY,isTwoPane);
+            intent.putExtra(ScreenUtil.SCREEN_MODE_KEY,isLandscapeMode);
+            intent.putExtra(ScreenUtil.SELECTED_STEP_INSTRUCTION,getSelectedStepInstruction());
             startActivity(intent);
 
         }
 
     }
 
-    public static Recipe getSelectedRecipe() {
+    public Step findStepById(int id){
+
+        Step step = null;
+
+        if(id >= 0 && selectedRecipe != null){
+            Step[] steps = selectedRecipe.getSteps();
+            for(Step element : steps){
+                if(element.getId() == selectedStepId){
+                    step = element;
+                    break;
+                }
+            }
+        }
+
+        return step;
+    }
+
+    private void loadFragmentData(){
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        MediaPlayerFragment mediaPlayerFragment = MediaPlayerFragment.newInstance(
+                String.valueOf(getSelectedStepId()), getSelectedVideoURL());
+
+        fragmentManager.beginTransaction()
+                .add(R.id.media_container, mediaPlayerFragment)
+                .commit();
+
+
+        StepInstructorFragment stepDetailFragment =
+                StepInstructorFragment.newInstance(String.valueOf(getSelectedStepId()),
+                        isTwoPane,selectedStepInstruction);
+
+        fragmentManager.beginTransaction()
+                .add(R.id.step_detail_container,stepDetailFragment)
+                .commit();
+
+    }
+
+    public Recipe getSelectedRecipe() {
         return selectedRecipe;
+    }
+
+    public int getSelectedStepId() {
+        return this.selectedStepId;
+    }
+
+    public void setSelectedStepId(int selectedStepId) {
+        this.selectedStepId = selectedStepId;
+    }
+
+    public String getSelectedVideoURL() {
+        return selectedVideoURL;
+    }
+
+    public void setSelectedVideoURL(String selectedVideoURL) {
+        this.selectedVideoURL = selectedVideoURL;
+    }
+
+    public String getSelectedStepInstruction() {
+        return selectedStepInstruction;
+    }
+
+    public void setSelectedStepInstruction(String selectedStepInstruction) {
+        this.selectedStepInstruction = selectedStepInstruction;
     }
 
     public void getScreenSize(){

@@ -37,6 +37,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.udacity.ouz.bakingapp.R;
+import com.udacity.ouz.bakingapp.util.ScreenUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,8 +69,8 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     public static MediaPlayerFragment newInstance(String stepId,String videoUrl) {
         MediaPlayerFragment fragment = new MediaPlayerFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(STEP_ID, stepId);
-        bundle.putString(VIDEO_URL,videoUrl);
+        bundle.putString(ScreenUtil.SELECTED_STEP_KEY, stepId);
+        bundle.putString(ScreenUtil.SELECTED_VIDEO_URL_KEY,videoUrl);
 
         fragment.setArguments(bundle);
 
@@ -80,16 +81,14 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mStepId = getArguments().getString(STEP_ID);
-            mVideoUrl = getArguments().getString(VIDEO_URL);
+            mStepId = getArguments().getString(ScreenUtil.SELECTED_STEP_KEY);
+            mVideoUrl = getArguments().getString(ScreenUtil.SELECTED_VIDEO_URL_KEY);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
 
         // Inflate the Android-Me fragment layout
         View rootView = inflater.inflate(R.layout.fragment_media_player, container, false);
