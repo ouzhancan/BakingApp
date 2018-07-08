@@ -39,6 +39,7 @@ public class StepDetailActivity extends AppCompatActivity {
 
             MediaPlayerFragment mediaPlayerFragment = MediaPlayerFragment.newInstance(
                     selectedStepId, selectedVideoURL);
+            mediaPlayerFragment.setContext(this);
 
             fragmentManager.beginTransaction()
                     .add(R.id.media_container, mediaPlayerFragment)

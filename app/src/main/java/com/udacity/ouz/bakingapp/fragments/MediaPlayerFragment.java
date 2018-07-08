@@ -1,12 +1,17 @@
 package com.udacity.ouz.bakingapp.fragments;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
@@ -42,6 +47,8 @@ import com.udacity.ouz.bakingapp.util.ScreenUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventListener {
 
     private static final String STEP_ID = "STEP_ID";
@@ -66,7 +73,7 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
         // Required empty public constructor
     }
 
-    public static MediaPlayerFragment newInstance(String stepId,String videoUrl) {
+    public static MediaPlayerFragment newInstance(String stepId, String videoUrl) {
         MediaPlayerFragment fragment = new MediaPlayerFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ScreenUtil.SELECTED_STEP_KEY, stepId);
@@ -92,6 +99,7 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
 
         // Inflate the Android-Me fragment layout
         View rootView = inflater.inflate(R.layout.fragment_media_player, container, false);
+
 
         ButterKnife.bind(this, rootView);
 
@@ -159,6 +167,7 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             exoPlayer.setPlayWhenReady(true);
         }
     }
+
 
     @Override
     public void onDestroy() {
