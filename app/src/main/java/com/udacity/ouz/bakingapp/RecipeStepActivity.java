@@ -77,7 +77,8 @@ public class RecipeStepActivity extends AppCompatActivity
 
     @Override
     public void onStepSelected(int id) {
-        Toast.makeText(this,"gelen step id : " +id,Toast.LENGTH_SHORT).show();
+
+       // Toast.makeText(this,"gelen step id : " +id,Toast.LENGTH_SHORT).show();
 
         setSelectedStepId(id);
         Step step = findStepById(Integer.valueOf(selectedStepId));
@@ -106,6 +107,7 @@ public class RecipeStepActivity extends AppCompatActivity
 
         }else{
             Intent intent = new Intent(this,StepDetailActivity.class);
+            intent.putExtra(ScreenUtil.SELECTED_RECIPE_KEY,selectedRecipe);
             intent.putExtra(ScreenUtil.SELECTED_STEP_KEY,String.valueOf(getSelectedStepId()));
             intent.putExtra(ScreenUtil.SELECTED_VIDEO_URL_KEY,getSelectedVideoURL());
             intent.putExtra(ScreenUtil.IS_TWO_PANE_KEY,isTwoPane);
@@ -117,7 +119,7 @@ public class RecipeStepActivity extends AppCompatActivity
 
     }
 
-    public Step findStepById(int id){
+    private Step findStepById(int id){
 
         Step step = null;
 

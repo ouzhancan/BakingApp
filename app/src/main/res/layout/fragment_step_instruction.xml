@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_step_instruction"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/ingredient_text_color"
+        android:textSize="@dimen/detail_instruction_text_size"
+        android:textStyle="bold"
+        tools:text="@string/step_instruction" />
 
 </LinearLayout>

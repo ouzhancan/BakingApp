@@ -23,6 +23,8 @@
 
     <string name="steps_label">Steps</string>
 
+    <string name="step_instruction">Step Instruction</string>
+
     <string name="play">Play</string>
 
     <string name="pause">Restart</string>
